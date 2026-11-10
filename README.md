@@ -1,6 +1,6 @@
 # SHAuditer Professional v1.1.7
 
-**SHAuditor = Street_Hackers_Auditor** — developed and maintained by the Street_Hackers security team. The historical command and Python package names remain `SHAuditer` / `shauditer` for compatibility.
+**SHAuditor> Street_Hackers_Auditor** — developed and maintained by the Street_Hackers security team. The historical command and Python package names remain `SHAuditer` / `shauditer` for compatibility.
 
 **Street_Hackers** | Local-first, evidence-focused security auditing for authorized engagements.
 
