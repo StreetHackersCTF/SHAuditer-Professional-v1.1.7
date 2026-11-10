@@ -1,0 +1,28 @@
+openapi: 3.1.0
+info:
+  title: Demo Staging API (NOT A LIVE TARGET)
+  version: 1.0.0
+servers:
+  - url: https://staging.example.invalid
+security:
+  - BearerToken: []
+paths:
+  /health:
+    get:
+      description: Public health check
+      security: []
+      responses:
+        '200':
+          description: OK
+  /account:
+    get:
+      security:
+        - BearerToken: []
+      responses:
+        '200':
+          description: OK
+components:
+  securitySchemes:
+    BearerToken:
+      type: http
+      scheme: bearer

@@ -1,0 +1,328 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="shauditer-token" content="__SHAUDITER_TOKEN__">
+  <title>SHAuditer Professional v1.1.7 — Security Operations Workspace · Theme-ready</title>
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+<div class="app-shell">
+  <aside class="sidebar">
+    <div class="brand">
+      <img class="brand-logo" src="/static/assets/street_hackers_logo.png" alt="Street_Hackers logo">
+      <div><strong>SHAuditer</strong><span>Street_Hackers_Auditor</span></div>
+    </div>
+    <nav class="nav" aria-label="Primary navigation">
+      <div class="nav-group-label">WORKSPACE</div>
+      <button class="nav-item active" data-view="overview"><span>◈</span>Overview</button>
+      <button class="nav-item" data-view="audits"><span>◎</span>Audits</button>
+      <button class="nav-item" data-view="assets"><span>⌁</span>Recon</button>
+      <button class="nav-item" data-view="findings"><span>◇</span>Vulnerabilities</button>
+      <div class="nav-group-label">ASSESSMENT</div>
+      <button class="nav-item" data-view="intelligence"><span>⌘</span>Exploitation & Validation</button>
+      <button class="nav-item" data-view="mitigation"><span>✓</span>Mitigation</button>
+      <button class="nav-item" data-view="evidence"><span>▣</span>Evidence</button>
+      <button class="nav-item" data-view="reports"><span>▤</span>Reports</button>
+      <div class="nav-group-label">OPERATIONS</div>
+      <button class="nav-item" data-view="tools"><span>▦</span>Tool Hub</button>
+      <button class="nav-item" data-view="diagnostics"><span>⚙</span>Diagnostics</button>
+    </nav>
+    <div class="sidebar-foot">
+      <div class="safety-chip"><span class="dot"></span>Authorized assessment mode</div>
+      <small>v1.1.7 · Street_Hackers</small>
+    </div>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <div><p class="eyebrow">Street_Hackers_Auditor</p><h1 id="pageTitle">Assessment Overview</h1></div>
+      <div class="top-actions">
+        <span id="selectedAuditChip" class="audit-chip hidden"></span>
+        <button id="themeToggle" class="btn theme-toggle" type="button" aria-label="Switch to light mode" aria-pressed="false" title="Switch theme"><span id="themeIcon" aria-hidden="true">☀</span><span id="themeLabel">Light</span></button>
+        <button id="deleteAuditBtn" class="btn danger hidden">Delete Audit</button>
+        <button id="refreshBtn" class="btn ghost">Refresh</button>
+        <button id="newAuditBtn" class="btn primary">+ New Audit</button>
+      </div>
+    </header>
+
+    <section id="overviewView" class="view active">
+      <div class="hero card">
+        <div class="hero-copy">
+          <p class="eyebrow accent">FROM TARGET TO REPORT</p>
+          <h2>Understand the surface.<br><span>Validate the risk.</span></h2>
+          <p>Five-phase authorized assessment across web, API and network targets, with offline cloud, container and AI configuration review, single-use PoC approvals, and professional reporting.</p>
+          <div class="hero-actions"><button class="btn primary" id="heroNewAudit">Start authorized audit</button><button class="btn secondary" data-jump="audits">Review audits</button></div>
+        </div>
+        <div class="hero-visual brand-stage" aria-hidden="true">
+          <img class="scene-art" src="/static/assets/street_hackers_scene.png" alt="">
+          <div class="scene-shade"></div>
+          <div class="scene-brand">
+            <img src="/static/assets/street_hackers_logo.png" alt="">
+            <div><span>STREET_HACKERS</span><b>SHAuditer Security Assessment Console</b></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="team-identity card">
+        <div class="team-identity-art"><img src="/static/assets/street_hackers_logo.png" alt="Street_Hackers CTF Team"></div>
+        <div class="team-identity-copy">
+          <p class="eyebrow accent">STREET_HACKERS · SECURITY RESEARCH</p>
+          <h3>One console for reconnaissance, vulnerability analysis, validation evidence, mitigation and reporting.</h3>
+          <p>The dashboard keeps raw tool evidence and normalized assessment data together so each conclusion can be traced back to the audit that produced it.</p>
+        </div>
+        <div class="team-identity-scene"><img src="/static/assets/street_hackers_scene.png" alt="Street_Hackers visual identity"></div>
+      </div>
+
+      <article class="card status-center" id="statusCenter" aria-live="polite">
+        <div class="status-meter"><div class="status-ring" id="statusRing"><div><strong id="statusPercent">0%</strong><small>MODULES</small></div></div></div>
+        <div class="status-copy">
+          <p class="eyebrow accent">LIVE ASSESSMENT HEALTH <span class="live-indicator" aria-hidden="true"></span></p><h3 id="statusHeadline">Select an assessment to see coverage</h3>
+          <p class="muted" id="statusExplanation">Completed checks, missing tools and confidence are shown separately from vulnerability counts.</p>
+          <div id="statusModuleRail" class="status-rail"></div>
+        </div>
+        <div class="status-numbers"><div><strong id="statusToolsOK">0</strong><span>Passed modules</span></div><div><strong id="statusToolsFailed">0</strong><span>Missing / failed</span></div><button class="btn secondary small" data-jump="tools">Tool setup →</button></div>
+      </article>
+
+      <div class="stats-grid six">
+        <article class="stat card"><span>Audits</span><strong id="statAudits">0</strong><small>Persistent history</small></article>
+        <article class="stat card"><span>Assets</span><strong id="statAssets">0</strong><small>Observed assets</small></article>
+        <article class="stat card"><span>Services</span><strong id="statServices">0</strong><small>Open / observed</small></article>
+        <article class="stat card critical"><span>Critical</span><strong id="statCritical">0</strong><small>Critical findings</small></article>
+        <article class="stat card"><span>Validated</span><strong id="statValidated">0</strong><small>Evidence-backed</small></article>
+        <article class="stat card"><span>Evidence</span><strong id="statEvidence">0</strong><small>Hashed artifacts</small></article>
+      </div>
+
+      <div class="dashboard-grid">
+        <article class="card panel">
+          <div class="panel-head"><div><p class="eyebrow">RISK DISTRIBUTION</p><h3>Findings by severity</h3></div><span id="riskBadge" class="state-pill neutral">NO DATA</span></div>
+          <div class="risk-visual">
+            <div id="riskWheel" class="risk-wheel" role="img" aria-label="Severity distribution"><div class="risk-wheel-core"><strong id="riskWheelTotal">0</strong><small>FINDINGS</small></div></div>
+            <div class="risk-visual-caption"><strong id="riskVisualHeadline">Awaiting findings</strong><span>Severity distribution is based on recorded observations, not an assessment-clearance claim.</span></div>
+          </div>
+          <div id="severityBars" class="severity-bars"><div class="muted">Select an audit.</div></div>
+        </article>
+        <article class="card panel">
+          <div class="panel-head"><div><p class="eyebrow">ASSESSMENT PIPELINE</p><h3 id="pipelineTitle">Select an audit</h3></div><span id="pipelineState" class="state-pill neutral">IDLE</span></div>
+          <div class="pipeline eight">
+            <div data-stage="SCOPE"><span>1</span><b>Scope</b></div>
+            <div data-stage="RECON"><span>2</span><b>Recon</b></div>
+            <div data-stage="VULN"><span>3</span><b>Vuln</b></div>
+            <div data-stage="PRIORITY"><span>4</span><b>Risk</b></div>
+            <div data-stage="INTEL"><span>5</span><b>Intel</b></div>
+            <div data-stage="VALIDATE"><span>6</span><b>Validate</b></div>
+            <div data-stage="MITIGATE"><span>7</span><b>Mitigate</b></div>
+            <div data-stage="REPORT"><span>8</span><b>Report</b></div>
+          </div>
+          <div id="jobStatus" class="job-status muted">No active job.</div>
+        </article>
+      </div>
+
+      <div class="dashboard-grid">
+        <article class="card panel">
+          <div class="panel-head"><div><p class="eyebrow">RECENT ACTIVITY</p><h3>Recent audits</h3></div><button class="link-btn" data-jump="audits">View all →</button></div>
+          <div id="recentAudits" class="list-state">No audits yet.</div>
+        </article>
+        <article class="card panel">
+          <div class="panel-head"><div><p class="eyebrow">PHASE DETAIL</p><h3>Assessment coverage</h3></div></div>
+          <div id="phaseCards" class="phase-cards"><div class="muted">Select an audit to view detailed phase metrics.</div></div>
+        </article>
+      </div>
+
+      <article class="card panel full">
+        <div class="panel-head"><div><p class="eyebrow">QUALITY GATE</p><h3>Assessment completeness and evidence integrity</h3></div><span id="qualityStatus" class="state-pill neutral">NOT ASSESSED</span></div>
+        <p id="qualitySummary" class="muted">Select an audit to review scanner coverage and evidence verification.</p>
+        <div id="qualityLimitations" class="module-list"></div>
+      </article>
+
+      <article class="card panel full">
+        <div class="panel-head"><div><p class="eyebrow">AUDIT TRAIL</p><h3>Latest events</h3></div></div>
+        <div id="eventTimeline" class="timeline"><div class="muted">No audit selected.</div></div>
+      </article>
+    </section>
+
+    <section id="auditsView" class="view">
+      <article class="card panel full">
+        <div class="panel-head"><div><p class="eyebrow">ASSESSMENTS</p><h3>Audit history</h3></div><button class="btn primary small" id="auditViewNew">+ New Audit</button></div>
+        <div class="table-wrap"><table><thead><tr><th>Audit ID</th><th>Target</th><th>Profile</th><th>State</th><th>Created</th><th>Open</th><th>Actions</th></tr></thead><tbody id="auditsTable"></tbody></table></div>
+      </article>
+    </section>
+
+    <section id="assetsView" class="view">
+      <div id="assetsEmpty" class="empty card"><h3>No audit selected</h3><p>Select an audit to inspect detailed reconnaissance.</p></div>
+      <div id="assetsPanel" class="hidden">
+        <div class="stats-grid four compact">
+          <article class="stat card"><span>Assets</span><strong id="reconAssetsCount">0</strong><small>Normalized</small></article>
+          <article class="stat card"><span>Services</span><strong id="reconServicesCount">0</strong><small>Observed</small></article>
+          <article class="stat card"><span>Technologies</span><strong id="reconTechCount">0</strong><small>Fingerprints</small></article>
+          <article class="stat card"><span>Modules OK</span><strong id="reconModulesCount">0</strong><small>Successful tools</small></article>
+        </div>
+        <article class="card panel full"><div class="panel-head"><div><p class="eyebrow">ATTACK SURFACE</p><h3>Assets & discovered services</h3></div></div><div class="table-wrap"><table><thead><tr><th>Address</th><th>Port</th><th>Protocol</th><th>Service</th><th>Product / Version</th><th>Web / Notes</th></tr></thead><tbody id="assetsTable"></tbody></table></div></article>
+        <div class="dashboard-grid">
+          <article class="card panel"><div class="panel-head"><div><p class="eyebrow">TECHNOLOGY</p><h3>Technology fingerprints</h3></div></div><div id="technologyList" class="chip-list"></div></article>
+          <article class="card panel"><div class="panel-head"><div><p class="eyebrow">TOOL HEALTH</p><h3>Recon module runs</h3></div></div><div id="moduleRunList" class="module-list"></div></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="findingsView" class="view">
+      <div id="findingEmpty" class="empty card"><h3>Select an audit</h3><p>Choose an audit to inspect normalized vulnerability findings.</p></div>
+      <div id="findingsPanel" class="hidden">
+        <div id="vulnSummary" class="stats-grid five compact"></div>
+        <article class="card panel full">
+          <div class="panel-head"><div><p class="eyebrow">NORMALIZED FINDINGS</p><h3 id="findingsHeading">Vulnerability register</h3></div><div class="filters"><select id="severityFilter"><option value="ALL">All severities</option><option>CRITICAL</option><option>HIGH</option><option>MEDIUM</option><option>LOW</option><option>INFORMATIONAL</option></select></div></div>
+          <div class="table-wrap"><table><thead><tr><th>ID</th><th>Severity</th><th>Priority</th><th>Finding</th><th>Asset</th><th>CVEs</th><th>Validation</th></tr></thead><tbody id="findingsTable"></tbody></table></div>
+        </article>
+      </div>
+    </section>
+
+    <section id="intelligenceView" class="view">
+      <div id="intelEmpty" class="empty card"><h3>No audit selected</h3><p>Select an assessment to review exploit intelligence, approvals and validation.</p></div>
+      <div id="intelPanel" class="hidden">
+        <div class="action-strip card"><div><p class="eyebrow">EXPLOIT INTELLIGENCE & VALIDATION</p><h3>Applicability, approvals and evidence-backed outcomes</h3><p>SHAuditer correlates CVEs with observed versions and discovers local exploit candidates in read-only mode. Candidate discovery is not proof of successful exploitation.</p></div><button id="intelAllBtn" class="btn primary">Analyze top 5 CVE findings</button></div>
+        <div class="stats-grid four compact">
+          <article class="stat card"><span>Analyzed</span><strong id="intelAnalyzed">0</strong><small>Finding intelligence</small></article>
+          <article class="stat card"><span>Candidates</span><strong id="intelCandidates">0</strong><small>Local modules</small></article>
+          <article class="stat card"><span>Validated</span><strong id="intelValidated">0</strong><small>Evidence-backed</small></article>
+          <article class="stat card"><span>Access records</span><strong id="intelSessions">0</strong><small>Metadata only</small></article>
+        </div>
+        <article class="card panel full"><div class="panel-head"><div><p class="eyebrow">CVE / EXPLOIT INTELLIGENCE</p><h3>Applicability register</h3></div></div><div class="table-wrap"><table><thead><tr><th>Finding</th><th>CVEs</th><th>Applicability</th><th>Confidence</th><th>Local candidates</th><th>Review</th><th>Validation</th></tr></thead><tbody id="intelTable"></tbody></table></div></article>
+        <div class="dashboard-grid">
+          <article class="card panel"><div class="panel-head"><div><p class="eyebrow">APPROVALS</p><h3>Operator decisions</h3></div></div><div id="approvalList" class="module-list"></div></article>
+          <article class="card panel"><div class="panel-head"><div><p class="eyebrow">RECORDED ACCESS</p><h3>Evidence-backed sessions</h3></div></div><div id="accessList" class="module-list"></div></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="mitigationView" class="view">
+      <div id="mitigationEmpty" class="empty card"><h3>No audit selected</h3><p>Select an audit to build a remediation plan.</p></div>
+      <div id="mitigationPanel" class="hidden">
+        <div class="action-strip card"><div><p class="eyebrow">MITIGATION PLAN</p><h3>Turn findings into prioritized remediation work</h3><p>Finding-specific remediation is shown when provided by the scanner. Missing guidance is clearly labeled as generic SHAuditer hardening guidance.</p></div><span class="state-pill good">RE-TEST AFTER FIX</span></div>
+        <article class="card panel full"><div class="table-wrap"><table><thead><tr><th>ID</th><th>Severity</th><th>Priority</th><th>Finding</th><th>Recommended mitigation</th><th>Source</th></tr></thead><tbody id="mitigationTable"></tbody></table></div></article>
+        <article class="card panel full"><div class="panel-head"><div><p class="eyebrow">CLOSURE WORKFLOW</p><h3>Remediation verification</h3></div></div><div class="closure-grid"><div><b>1</b><span>Apply fix / hardening</span></div><div><b>2</b><span>Reduce exposure</span></div><div><b>3</b><span>Re-scan affected surface</span></div><div><b>4</b><span>Repeat safe validation</span></div><div><b>5</b><span>Attach closure evidence</span></div><div><b>6</b><span>Close finding</span></div></div></article>
+      </div>
+    </section>
+
+    <section id="evidenceView" class="view">
+      <div id="evidenceEmpty" class="empty card"><h3>No audit selected</h3><p>Select an audit to view integrity-hashed evidence.</p></div>
+      <article id="evidencePanel" class="card panel full hidden"><div class="panel-head"><div><p class="eyebrow">CHAIN OF EVIDENCE</p><h3>Evidence artifacts</h3></div><button id="uploadEvidenceBtn" class="btn secondary small">Import evidence</button></div><div class="table-wrap"><table><thead><tr><th>Evidence ID</th><th>Source</th><th>Kind</th><th>SHA-256</th><th>Path</th><th>Created</th></tr></thead><tbody id="evidenceTable"></tbody></table></div></article>
+    </section>
+
+    <section id="reportsView" class="view">
+      <div id="reportsEmpty" class="empty card"><h3>No audit selected</h3><p>Select an audit to generate the professional report package.</p></div>
+      <div id="reportsPanel" class="hidden">
+        <article class="card panel full engagement-panel">
+          <div class="panel-head"><div><p class="eyebrow accent">ENGAGEMENT RECORD</p><h3>NIST-aligned client & assessment details</h3><p class="muted">Enter verified details for the final VA&amp;PT report. Leave unknown fields blank: the report will not invent approval, ownership, or dates.</p></div></div>
+          <form id="engagementForm" class="engagement-form">
+            <label>Client organization<input id="engClient" maxlength="300" placeholder="Client legal organization name"></label>
+            <label>Client contact<input id="engContact" maxlength="300" placeholder="Authorized security point of contact"></label>
+            <label>Engagement reference<input id="engId" maxlength="300" placeholder="VAPT-2026-001"></label>
+            <label>Authorization / ROE reference<input id="engAuthorization" maxlength="300" placeholder="Signed ROE reference (do not enter secrets)"></label>
+            <label>Assessment window<input id="engWindow" maxlength="300" placeholder="Dates and time zone"></label>
+            <label>Assessment lead<input id="engLead" maxlength="300" placeholder="Authorized assessor / lead"></label>
+            <label>Information classification<select id="engClassification"><option value="">Default confidential</option><option>CONFIDENTIAL — authorized recipients only</option><option>RESTRICTED — need-to-know</option><option>INTERNAL</option></select></label>
+            <label>Testing constraints / exclusions<textarea id="engConstraints" rows="2" maxlength="300" placeholder="Business hours, excluded workflows, credentials not provided…"></textarea></label>
+            <div class="engagement-actions"><button class="btn primary" type="submit">Save engagement details</button><p class="muted">Save, then generate/refresh reports. Client details remain within this audit's workspace.</p></div>
+          </form>
+        </article>
+        <div class="action-strip card"><div><p class="eyebrow">WORD REPORT PACKAGE</p><h3>Professional `.docx` deliverables</h3><p>Formal reports include PDF, HTML and Microsoft Word formats, with copies stored in the SHAuditer project `reports/&lt;AUDIT-ID&gt;/` folder.</p></div><button id="generateReportBtn" class="btn primary">Generate / refresh reports</button></div>
+        <div class="report-delivery-banner card">
+          <div><p class="eyebrow accent">COMPLETE EXPORT</p><h3>Download complete report bundle</h3><p>PDF, Word, HTML, CSV, JSON, and SHA-256 manifest in one ZIP. Includes only generated reports, not raw credentials or scanner output.</p></div>
+          <a id="bundleReportBtn" class="btn primary disabled">Download ZIP bundle</a>
+        </div>
+        <div class="report-layout three">
+          <article class="card report-card"><div class="report-icon">EX</div><p class="eyebrow">MANAGEMENT</p><h3>Executive Report</h3><p>Risk snapshot, top findings, business-oriented priorities and management remediation plan.</p><a id="executiveReportBtn" class="btn secondary disabled">Download .docx</a></article>
+          <article class="card report-card"><div class="report-icon">TX</div><p class="eyebrow">TECHNICAL</p><h3>Technical Report</h3><p>Recon, services, vulnerabilities, exploit intelligence, validation, access records, mitigation and evidence.</p><a id="technicalReportBtn" class="btn secondary disabled">Download .docx</a></article>
+          <article class="card report-card"><div class="report-icon">ALL</div><p class="eyebrow">FULL PACKAGE</p><h3>Complete Assessment</h3><p>Comprehensive assessment document with detailed findings and appendices.</p><a id="completeReportBtn" class="btn primary disabled">Download .docx</a></article>
+        </div>
+        <div class="report-layout three">
+          <article class="card report-card"><div class="report-icon">PDF</div><p class="eyebrow">PRINT READY</p><h3>Assessment PDF</h3><p>Searchable, executive-to-technical report with limitations, findings and mitigations.</p><a id="pdfReportBtn" class="btn primary disabled">Download .pdf</a></article>
+          <article class="card report-card"><div class="report-icon">WEB</div><p class="eyebrow">OFFLINE</p><h3>HTML Report</h3><p>Portable, self-contained report to review or print from a browser.</p><a id="htmlReportBtn" class="btn secondary disabled">Download .html</a></article>
+        </div>
+        <article class="card panel full send-panel">
+          <div class="panel-head"><div><p class="eyebrow accent">CLIENT DELIVERY DESK</p><h3>Professional client email &amp; report handover</h3></div><span id="smtpBadge" class="state-pill neutral">GMAIL CREDENTIAL NEEDED</span></div>
+          <p class="muted">Default sender: streethackers03012026@gmail.com (Gmail authentication required). The client is selected for each engagement. Choose an industry-style template, edit the content, preview it, then approve one confidential send. No automatic distribution.</p>
+          <div class="sender-identity"><span>FROM · STREET_HACKERS</span><strong id="reportSenderIdentity">Street_Hackers Security Team &lt;streethackers03012026@gmail.com&gt;</strong></div>
+          <form id="sendReportForm" class="email-form">
+            <label>Client organization<input id="reportClientOrganization" type="text" maxlength="180" placeholder="Example Client Ltd" autocomplete="off"></label>
+            <label>Client contact name<input id="reportClientName" type="text" maxlength="180" placeholder="Alex Morgan / Security Team" autocomplete="off"></label>
+            <label>Client recipient email (changes each engagement)<input id="reportEmail" type="email" required placeholder="security@example-client.com" autocomplete="off"></label>
+            <label>Report attachment<select id="reportEmailFormat"><option value="pdf">Assessment PDF</option><option value="bundle">Complete ZIP bundle</option><option value="technical">Technical DOCX</option><option value="executive">Executive DOCX</option><option value="complete">Complete DOCX</option><option value="html">Offline HTML</option></select></label>
+            <label class="email-wide">Industry email template<select id="reportEmailTemplate"><option value="final_delivery">Final assessment report</option></select></label>
+            <label class="email-wide">Subject (editable)<input id="reportSubject" type="text" maxlength="240" placeholder="Load a professional template to start" autocomplete="off"></label>
+            <label class="email-wide">Email message (editable)<textarea id="reportBody" rows="13" maxlength="15000" placeholder="Load a professional template to start" spellcheck="true"></textarea></label>
+            <div class="email-wide email-actions"><button class="btn secondary" type="button" id="loadEmailTemplateBtn">Load selected template</button><button class="btn secondary" type="button" id="previewReportBtn">Review email before sending</button></div>
+            <div id="reportPreviewCard" class="email-wide mail-preview hidden" aria-live="polite"></div>
+            <label class="check"><input type="checkbox" id="sendConsent" required> I have verified the target, client address, report content and authorization to share this confidential assessment.</label>
+            <button class="btn primary" type="submit" id="sendReportBtn" disabled>Send from Street_Hackers mailbox</button>
+            <small class="muted" id="sendReportStatus">Choose a client, load a template and review the email before sending.</small>
+          </form>
+          <p class="notice">SMTP with TLS protects transport to your mail relay, but it is not end-to-end report encryption. For sensitive exploit details, use a client-approved secure portal or encrypted attachment and share the password out-of-band. Delivery status means SMTP acceptance—not verified inbox receipt.</p>
+        </article>
+        <article class="card panel full"><div class="panel-head"><div><p class="eyebrow">OUTPUT LOCATIONS</p><h3>Report storage</h3></div></div><div class="path-grid"><div><span>Audit workspace</span><code id="workspaceReportPath">Select an audit.</code></div><div><span>SHAuditer project folder</span><code id="projectReportPath">Select an audit.</code></div></div></article>
+      </div>
+    </section>
+
+    <section id="toolsView" class="view">
+      <article class="card panel full">
+        <div class="panel-head"><div><p class="eyebrow accent">CROSS-PLATFORM TOOL DISCOVERY</p><h3>Professional Tool Hub</h3><p class="muted">Official projects across Kali Linux, Ubuntu, Debian, macOS, Windows and WSL. Catalog-only tools are not represented as integrated scanners.</p></div><button id="refreshToolBtn" class="btn primary small">Check installed tools</button></div>
+        <div class="tool-overview"><div><strong id="toolFoundCount">—</strong><span>Installed</span></div><div><strong id="toolTotalCount">—</strong><span>Catalogued</span></div><div><strong id="toolIntegratedCount">—</strong><span>Integrated/read-only</span></div></div>
+        <div class="tool-filters"><input id="toolSearch" placeholder="Search Nmap, web, cloud, AI, TLS, secrets..." aria-label="Search tools"><select id="toolCategory" aria-label="Tool category"><option value="ALL">All categories</option></select><select id="toolPlatform" aria-label="Installation platform"><option value="linux">Linux / Kali</option><option value="macos">macOS</option><option value="windows">Windows / WSL</option></select></div>
+        <div id="toolHubGrid" class="tool-hub-grid"><p class="muted">Load the local tool inventory.</p></div>
+        <p class="notice">Catalog tools marked CATALOG_ONLY are discovery and installation references, not connected scanners. INTEGRATED tools execute only when installed and selected by the assessment workflow. SHAuditer does not auto-run arbitrary GitHub install scripts or execute downloaded exploits. Review versions, signatures, licenses, and system permissions before installing any tool.</p>
+      </article>
+    </section>
+
+    <section id="diagnosticsView" class="view"><article class="card panel full"><div class="panel-head"><div><p class="eyebrow">SYSTEM HEALTH</p><h3>Tool diagnostics</h3></div><button id="diagnosticsBtn" class="btn secondary small">Run diagnostics</button></div><div id="diagnosticsGrid" class="diagnostics-grid"><div class="muted">Run diagnostics to inspect the local environment.</div></div></article></section>
+  </main>
+</div>
+
+<dialog id="newAuditDialog" class="modal">
+  <form id="newAuditForm" method="dialog">
+    <div class="modal-head"><div><p class="eyebrow">NEW ASSESSMENT</p><h2>Start authorized audit</h2></div><button type="button" class="icon-btn" data-close="newAuditDialog">×</button></div>
+    <label>Website, IP address, hostname, CIDR or server<input id="targetInput" required placeholder="https://app.example.com / 192.168.56.101 / server.local"></label>
+    <label>Offline artifact directory (optional — cloud, container and AI configs)<input id="artifactsInput" placeholder="/home/user/authorized-project (local files only)"></label>
+    <label>Assessment profile<select id="profileInput"><option value="safe">Safe</option><option value="standard">Standard</option></select></label>
+    <details class="scope-options"><summary>Advanced authorized scope (optional)</summary>
+      <label>Additional in-scope hosts, subdomains, or CIDRs<textarea id="scopeInclude" rows="2" placeholder="*.example.com, 10.20.0.0/24"></textarea></label>
+      <label>Explicit exclusions<textarea id="scopeExclude" rows="2" placeholder="admin.example.com, 10.20.0.5"></textarea></label>
+      <label>Only these TCP ports (blank = no extra port restriction)<input id="scopePorts" placeholder="80, 443, 8080"></label>
+      <p class="muted">Enter comma-separated items. The primary target is always included unless explicitly excluded. Acknowledgement of written authorization remains required.</p>
+    </details>
+    <label class="check"><input id="authorizedInput" type="checkbox" required><span>I confirm that I am authorized to assess this target and that it is within scope.</span></label>
+    <div class="notice">Active low-impact proof checks require a separate, single-use operator approval for each finding. No automatic exploit payload delivery, privilege escalation or shell creation.</div>
+    <div class="modal-actions"><button type="button" class="btn ghost" data-close="newAuditDialog">Cancel</button><button type="submit" class="btn primary">Start audit</button></div>
+  </form>
+</dialog>
+
+<dialog id="deleteAuditDialog" class="modal danger-modal">
+  <form id="deleteAuditForm" method="dialog">
+    <div class="modal-head"><div><p class="eyebrow danger-text">PERMANENT DELETION</p><h2>Delete audit</h2></div><button type="button" class="icon-btn" data-close="deleteAuditDialog">×</button></div>
+    <div class="delete-warning">
+      <strong id="deleteAuditName">Audit</strong>
+      <p>This permanently removes the audit database records, its SHAuditer workspace, evidence files, scanner output and mirrored Word reports and PDF/HTML exports. This action cannot be undone.</p>
+    </div>
+    <label>Type the exact Audit ID to confirm<input id="deleteAuditConfirm" required autocomplete="off" placeholder="SHA-2026-00001"></label>
+    <div class="modal-actions"><button type="button" class="btn ghost" data-close="deleteAuditDialog">Cancel</button><button type="submit" class="btn danger">Delete permanently</button></div>
+  </form>
+</dialog>
+
+<dialog id="findingDialog" class="modal wide"><div class="modal-head"><div><p class="eyebrow">FINDING REVIEW</p><h2 id="findingModalTitle">Finding</h2></div><button class="icon-btn" data-close="findingDialog">×</button></div><div id="findingModalBody"></div></dialog>
+
+<dialog id="evidenceDialog" class="modal">
+  <form id="evidenceForm" method="dialog">
+    <div class="modal-head"><div><p class="eyebrow">EVIDENCE</p><h2>Import evidence</h2></div><button type="button" class="icon-btn" data-close="evidenceDialog">×</button></div>
+    <label>Operator<input id="evidenceOperator" required placeholder="Operator name"></label>
+    <label>Kind<select id="evidenceKind"><option>MANUAL_VALIDATION</option><option>VALIDATION_OUTPUT</option><option>SCREENSHOT</option><option>NOTES</option><option>OTHER</option></select></label>
+    <label>Evidence file<input id="evidenceFile" type="file" required></label>
+    <label>Note<textarea id="evidenceNote" rows="3" placeholder="What does this evidence prove?"></textarea></label>
+    <div class="notice">Files imported through the GUI are limited to 5 MiB and copied into the audit workspace with a SHA-256 integrity hash.</div>
+    <div class="modal-actions"><button type="button" class="btn ghost" data-close="evidenceDialog">Cancel</button><button type="submit" class="btn primary">Import</button></div>
+  </form>
+</dialog>
+
+<div id="toast" class="toast" role="status"></div>
+<script src="/static/app.js"></script>
+</body>
+</html>

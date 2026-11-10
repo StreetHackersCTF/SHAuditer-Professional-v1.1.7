@@ -1,0 +1,31 @@
+{
+  "profile": "safe",
+  "timeouts": {
+    "nmap": 900,
+    "httpx": 300,
+    "subfinder": 300,
+    "nuclei": 1200,
+    "web_posture": 6,
+    "trivy": 180
+  },
+  "rate_limit": {
+    "max_parallel_modules": 3
+  },
+  "recon": {
+    "nmap_top_ports": 100,
+    "max_cidr_addresses": 256,
+    "service_detection": true
+  },
+  "intelligence": {
+    "nvd_timeout": 20,
+    "metasploit_timeout": 45,
+    "nvd_api_key": ""
+  },
+  "professional": {
+    "active_poc_requires_approval": true,
+    "poc_expiration_minutes": 60,
+    "offline_cloud_container_ai_review": true,
+    "http_probe_follows_redirects": false,
+    "automatic_exploit_execution": false
+  }
+}

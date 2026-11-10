@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+set -euo pipefail
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+export PYTHONPATH="$ROOT${PYTHONPATH:+:$PYTHONPATH}"
+PYTHON="$ROOT/.venv/bin/python"
+if [[ ! -x "$PYTHON" ]]; then
+  PYTHON="$(command -v python3)"
+fi
+if ! "$PYTHON" -c "import docx" >/dev/null 2>&1; then
+  echo "[!] SHAuditer v1.1.6 requires python-docx for Word reporting." >&2
+  echo "    Run: ./install.sh" >&2
+  exit 1
+fi
+exec "$PYTHON" -m shauditer.gui.server "$@"

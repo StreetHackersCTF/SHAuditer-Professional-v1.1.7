@@ -1,0 +1,7 @@
+rules:
+  - id: shauditer.python.eval-tainted-review
+    languages: [python]
+    severity: WARNING
+    message: "Use of eval() needs security review when input may be untrusted."
+    patterns:
+      - pattern: eval(...)

@@ -1,0 +1,8 @@
+{
+  "in_scope": ["192.168.56.0/28", "staging.example.org"],
+  "out_of_scope": [],
+  "allowed_domains": ["staging.example.org"],
+  "excluded_domains": [],
+  "allowed_ports": [22, 80, 443, 8080],
+  "excluded_ports": []
+}

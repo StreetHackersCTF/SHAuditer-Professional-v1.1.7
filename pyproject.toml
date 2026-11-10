@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "shauditer"
+version = "1.1.7"
+description = "Street_Hackers_Auditor — professional security assessment and VA&PT platform"
+readme = "README.md"
+requires-python = ">=3.10"
+authors = [{name = "Street_Hackers"}]
+dependencies = ["python-docx>=1.1", "PyYAML>=6.0", "reportlab>=4.0"]
+
+[project.optional-dependencies]
+dev = ["pytest>=8"]
+
+[project.scripts]
+shauditer = "shauditer.cli.app:main"
+shauditer-gui = "shauditer.gui.server:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["shauditer*"]
+
+[tool.setuptools.package-data]
+"shauditer.gui" = ["static/*.html", "static/*.css", "static/*.js", "static/assets/*.png", "static/assets/*.webp"]
+"shauditer.config" = ["default.json", "semgrep-local.yml"]

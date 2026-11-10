@@ -1,41 +1,38 @@
-# Python build artifacts
-__pycache__/
-*.py[cod]
-*.egg-info/
-dist/
-build/
 .venv/
-venv/
+__pycache__/
 .pytest_cache/
+*.pyc
+*.pyo
+*.egg-info/
+build/
+dist/
+reports/
+*.db
+*.db-shm
+*.db-wal
+*.sqlite
+.env
+.env.*
+workspaces/
+*.pem
+*.key
 .coverage
-htmlcov/
 
-# Local configuration and credentials
+
+# Client assessments and local credentials — never commit
 .env
 .env.*
 !.env.example
 !*.env.example
-*.pem
-*.key
-*.p12
-*.pfx
-secrets.json
-credentials.json
-
-# Client and assessment data
-workspace/
-workspaces/
-reports/
-evidence/
-audit-output/
+**/client_reports/
+**/evidence/
+**/workspaces/
+**/audit-output/
+**/credentials.json
+**/secrets.json
 *.db
 *.sqlite
 *.sqlite3
-*.log
-uploads/
-
-# Editor and OS
-.idea/
-.vscode/
-.DS_Store
-Thumbs.db
+*.pem
+*.p12
+*.pfx

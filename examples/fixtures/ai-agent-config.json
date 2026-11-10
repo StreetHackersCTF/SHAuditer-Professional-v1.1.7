@@ -1,0 +1,9 @@
+{
+  "description": "Synthetic demo configuration; no accounts or real credentials",
+  "guardrails_enabled": true,
+  "human_approval_for_tools": true,
+  "allow_remote_code": false,
+  "tools": {"allow_all": false, "allowlist": ["search_docs"]},
+  "prompt_logging": false,
+  "redact_pii": true
+}
