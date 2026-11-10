@@ -1,0 +1,41 @@
+# Python build artifacts
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+.venv/
+venv/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Local configuration and credentials
+.env
+.env.*
+!.env.example
+!*.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+secrets.json
+credentials.json
+
+# Client and assessment data
+workspace/
+workspaces/
+reports/
+evidence/
+audit-output/
+*.db
+*.sqlite
+*.sqlite3
+*.log
+uploads/
+
+# Editor and OS
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
